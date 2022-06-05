@@ -1,3 +1,4 @@
+const autoprefixer = require('autoprefixer');
 const { merge } = require('webpack-merge');
 const common = require('./webpack.common');
 
@@ -34,7 +35,7 @@ module.exports = merge(common, {
             options: {
               postcssOptions: {
                 plugins() {
-                  return [require('autoprefixer')];
+                  return [autoprefixer];
                 },
               },
             },

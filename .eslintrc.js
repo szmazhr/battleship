@@ -1,13 +1,17 @@
 module.exports = {
-  'env': {
+  env: {
     browser: true,
     es2021: true,
+    'jest/globals': true,
   },
-  'extends': ['airbnb-base'],
-  'parserOptions': {
+  extends: ['airbnb-base'],
+  parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
   },
-  'rules': {},
-  'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+  plugins: ['jest'],
+  rules: {
+    'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+    'max-len': ['error', { code: 80 }],
+  },
 };

@@ -1,7 +1,8 @@
 const path = require('path');
-const { merge } = require('webpack-merge');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const autoprefixer = require('autoprefixer');
+const { merge } = require('webpack-merge');
 const common = require('./webpack.common');
 
 module.exports = merge(common, {
@@ -38,7 +39,7 @@ module.exports = merge(common, {
             options: {
               postcssOptions: {
                 plugins() {
-                  return [require('autoprefixer')];
+                  return [autoprefixer];
                 },
               },
             },
