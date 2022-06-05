@@ -1,0 +1,42 @@
+{
+  "name": "battleship",
+  "version": "1.0.0",
+  "description": "Battleship game created in order to practice JavaScript testing.",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "watch": "jest --watch",
+    "dev": "webpack server --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/szmazhr/battleship.git"
+  },
+  "keywords": [],
+  "author": "Shahzar Mazhar",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/szmazhr/battleship/issues"
+  },
+  "homepage": "https://github.com/szmazhr/battleship#readme",
+  "devDependencies": {
+    "autoprefixer": "^10.4.7",
+    "css-loader": "^6.7.1",
+    "css-minimizer-webpack-plugin": "^4.0.0",
+    "eslint": "^8.17.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "html-webpack-plugin": "^5.5.0",
+    "mini-css-extract-plugin": "^2.6.0",
+    "node-sass": "^7.0.1",
+    "postcss": "^8.4.14",
+    "postcss-loader": "^7.0.0",
+    "sass-loader": "^13.0.0",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.72.1",
+    "webpack-cli": "^4.9.2",
+    "webpack-dev-server": "^4.9.0",
+    "webpack-merge": "^5.8.0"
+  }
+}
