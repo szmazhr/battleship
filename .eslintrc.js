@@ -21,7 +21,10 @@ module.exports = {
       },
     ],
     'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
-    'operator-linebreak': ['error', 'after'],
+    'operator-linebreak': 'off',
     'no-underscore-dangle': ['error', { allowAfterThis: true }],
+    'no-nested-ternary': 'off',
+    'arrow-body-style': 'off',
+    'comma-dangle': 'off',
   },
 };

@@ -61,7 +61,7 @@ function isPlacementPossible(cordX, cordY, length, axis) {
 
 function addShip(length, cordX, cordY, axis) {
   // prevent ship from being placed outside the board
-  if (!this.isValidCell(cordX, cordY)) return;
+  if (!this.isValidCell(cordX, cordY)) return false;
 
   let cX = cordX;
   let cY = cordY;
@@ -73,7 +73,7 @@ function addShip(length, cordX, cordY, axis) {
       cY = this.board.length - length;
     }
     // check if placement is possible
-    if (!this.isPlacementPossible(cX, cY, length, axis)) return;
+    if (!this.isPlacementPossible(cX, cY, length, axis)) return false;
 
     // add ship to board
     for (let i = 0; i < length; i++) {
@@ -86,7 +86,7 @@ function addShip(length, cordX, cordY, axis) {
       cX = this.board[cY].length - length;
     }
     // check if placement is possible
-    if (!this.isPlacementPossible(cX, cY, length, axis)) return;
+    if (!this.isPlacementPossible(cX, cY, length, axis)) return false;
 
     // add ship to board
     for (let i = 0; i < length; i++) {
@@ -102,6 +102,7 @@ function addShip(length, cordX, cordY, axis) {
   };
 
   this.ships.push(s);
+  return true;
 }
 
 // prevent shots corner neighbors if ship hits
@@ -124,8 +125,8 @@ function recordHit(cordX, cordY) {
 }
 
 function receiveAttack(cordX, cordY) {
-  if (!this.isValidCell(cordX, cordY)) return;
-  if (this.trackShot[cordY][cordX] !== 0) return;
+  if (!this.isValidCell(cordX, cordY)) return false;
+  if (this.trackShot[cordY][cordX] !== 0) return false;
 
   if (this.board[cordY][cordX] === 1) {
     this.board[cordY][cordX] = 2;
@@ -148,6 +149,7 @@ function receiveAttack(cordX, cordY) {
   } else {
     this.trackShot[cordY][cordX] = 1;
   }
+  return true;
 }
 
 function isGameOver() {

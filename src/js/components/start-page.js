@@ -1,3 +1,4 @@
+import addClickListener from '../modules/click-listner';
 import DOM from '../modules/dom-stuff';
 
 const loadStartPage = (() => {
@@ -6,6 +7,7 @@ const loadStartPage = (() => {
     className: 'start-btn',
     text: 'Start',
   });
+  addClickListener(startBtn, 'start-button-clicked');
   const startPageBody = DOM.createElement({
     tagName: 'div',
     className: 'start-page-body',
@@ -28,7 +30,7 @@ const loadStartPage = (() => {
   });
   const startPageContainer = DOM.createElement({
     tagName: 'div',
-    className: 'start-page-container',
+    className: 'start-page-container shown',
     children: [startBox],
   });
   return () => startPageContainer;
