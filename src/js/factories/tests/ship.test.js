@@ -1,10 +1,10 @@
-import createShip from '../ship';
+import Ship from '../ship';
 
 describe('Ship', () => {
   let ship;
 
   beforeEach(() => {
-    ship = createShip(2);
+    ship = new Ship(2);
   });
 
   test('should be able to be created', () => {

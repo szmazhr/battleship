@@ -13,5 +13,7 @@ module.exports = {
   rules: {
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
     'max-len': ['error', { code: 80 }],
+    'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
+    'operator-linebreak': ['error', 'after'],
   },
 };
