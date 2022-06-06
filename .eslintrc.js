@@ -11,9 +11,17 @@ module.exports = {
   },
   plugins: ['jest'],
   rules: {
+    'object-curly-newline': 'off',
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
-    'max-len': ['error', { code: 80 }],
+    'max-len': [
+      'error',
+      {
+        code: 80,
+        ignoreComments: true,
+      },
+    ],
     'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
     'operator-linebreak': ['error', 'after'],
+    'no-underscore-dangle': ['error', { allowAfterThis: true }],
   },
 };

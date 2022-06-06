@@ -7,7 +7,7 @@ describe('Ship', () => {
     ship = new Ship(2);
   });
 
-  test('should be able to be created', () => {
+  test('can be created', () => {
     expect(ship).toBeDefined();
   });
 

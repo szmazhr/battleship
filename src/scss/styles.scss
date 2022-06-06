@@ -1,0 +1,40 @@
+*{
+  box-sizing: border-box;
+}
+body{
+  margin: 0;
+}
+
+.start-page-container{
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e1ff7469;
+  
+  .start-page-content{
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+
+    .start-page-body{
+      display: flex;
+      flex-direction: column;
+
+      .start-btn{
+        padding: 0.5em;
+        font-size: 1.5rem;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        background-color: #c8ff00;
+        font-weight: 700;
+        // color: white;
+        &:hover{
+          background-color: #a6ff00;
+        }
+      }
+    }
+  }
+}
