@@ -70,6 +70,7 @@ describe('GameBoard', () => {
       axis: 'y',
       cX: 9,
       cY: 7,
+      reported: false,
     });
   });
 

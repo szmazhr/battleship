@@ -1,6 +1,7 @@
 import createApp from './main';
 import {
   addResultScreen,
+  markMissedAuto,
   removeStartScreen,
   renderBoard1,
   renderBoard2,
@@ -66,8 +67,10 @@ eventAggregator.subscribe('miss-auto', (cord) => {
   element.classList.add('auto');
 });
 
-eventAggregator.subscribe('ship-sunk', ({ ship }) => {
-  shipSunk(ship);
+eventAggregator.subscribe('ship-sunk', (event) => {
+  const shipWoCords = event.ship.ship;
+  shipSunk(shipWoCords);
+  markMissedAuto(event.ship, event.board);
 });
 
 eventAggregator.subscribe('game-over', addResultScreen);

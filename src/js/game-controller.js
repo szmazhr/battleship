@@ -4,9 +4,6 @@ import { important, random } from './utils';
 
 let player1;
 let player2;
-const currentGame = {
-  turn: 1,
-};
 
 function initializePlayers() {
   player1 = new Player('Human');
@@ -30,6 +27,10 @@ function initializePlayers() {
   eventAggregator.publish('player-initialized', { player1, player2 });
 }
 
+const currentGame = {
+  turn: 1,
+};
+
 function playerMove(x, y) {
   player1.attack(x, y);
 }
@@ -44,14 +45,13 @@ function checkGameStatus() {
       : 'main-content opponent-turn';
   prePlayer.board.ships.forEach((ship) => {
     if (ship.ship.isSunk() && !ship.reported) {
-      eventAggregator.publish('ship-sunk', { ship: ship.ship });
+      eventAggregator.publish('ship-sunk', { board: prePlayer.board, ship });
       // eslint-disable-next-line no-param-reassign
       ship.reported = true;
     }
   });
   if (prePlayer.board.isGameOver()) {
-    eventAggregator.publish('game-over', { winner: player });
-    console.log('game over');
+    eventAggregator.publish('game-over');
     return;
   }
   if (player.isComputer) {

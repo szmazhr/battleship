@@ -30,26 +30,16 @@ function isCellEmpty(cordX, cordY) {
 
 // prevent from being placed on others neighbors
 function isPlacementPossible(cordX, cordY, length, axis) {
-  const cords = [];
   let result = true;
   const start = axis === 'y' ? cordY : cordX;
   const end = axis === 'y' ? cordY + length : cordX + length;
-  for (let j = -1; j < 2; j++) {
+  [-1, 0, 1].forEach((j) => {
     for (let i = start - 1; i < end + 1; i++) {
-      if (axis === 'y') {
-        if (this.isValidCell(cordX + j, i)) {
-          cords.push([cordX + j, i]);
-        }
-      } else if (axis === 'x') {
-        if (this.isValidCell(i, cordY + j)) {
-          cords.push([i, cordY + j]);
-        }
+      const x = axis === 'y' ? cordX + j : i;
+      const y = axis === 'y' ? i : cordY + j;
+      if (this.isValidCell(x, y) && !this.isCellEmpty(x, y)) {
+        result = false;
       }
-    }
-  }
-  cords.forEach((cord) => {
-    if (!this.isCellEmpty(cord[0], cord[1])) {
-      result = false;
     }
   });
   return result;

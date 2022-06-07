@@ -75,6 +75,24 @@ function renderBoard2() {
   });
 }
 
+function markMissedAuto(ship, board) {
+  const { cX, cY, axis } = ship;
+  const { length } = ship.ship;
+  const start = axis === 'y' ? cY : cX;
+  const end = axis === 'y' ? cY + length : cX + length;
+  [-1, 0, 1].forEach((j) => {
+    for (let i = start - 1; i < end + 1; i++) {
+      const x = axis === 'y' ? cX + j : i;
+      const y = axis === 'y' ? i : cY + j;
+      if (board.isValidCell(x, y) && board.trackShot[y][x] === 0) {
+        // eslint-disable-next-line no-param-reassign
+        board.trackShot[y][x] = -1;
+        eventAggregator.publish('miss-auto', { x, y });
+      }
+    }
+  });
+}
+
 function shipSunk(ship) {
   const { length } = ship;
   const player = currentGame.turn === 0 ? 'player' : 'computer';
@@ -90,4 +108,5 @@ export {
   renderBoard1,
   renderBoard2,
   shipSunk,
+  markMissedAuto,
 };
