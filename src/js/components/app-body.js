@@ -1,4 +1,4 @@
-import addClickListener from '../modules/click-listner';
+import addClickListener from '../modules/click-listener';
 import DOM from '../modules/dom-stuff';
 
 const createAppBody = (() => {

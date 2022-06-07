@@ -1,6 +1,6 @@
 import createBoard from './components/board';
 import loadStartPage from './components/start-page';
-import addClickListener from './modules/click-listner';
+import addClickListener from './modules/click-listener';
 import eventAggregator from './modules/event-aggregator';
 import { currentGame } from './game-controller';
 import loadAliveIndicator from './components/alive-indicator';
