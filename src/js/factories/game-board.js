@@ -1,3 +1,4 @@
+import eventAggregator from '../modules/event-aggregator';
 import Ship from './ship';
 
 function createBoard(x, y) {
@@ -19,12 +20,7 @@ function GameBoard(x, y) {
 
 // Prevent from being placed outside the board
 function isValidCell(cordX, cordY) {
-  return (
-    cordX >= 0 &&
-    cordX < this.board[0].length &&
-    cordY >= 0 &&
-    cordY < this.board.length
-  );
+  return cordX >= 0 && cordX < 10 && cordY >= 0 && cordY < 10;
 }
 
 // Prevent from being placed ontop of another ship
@@ -99,6 +95,7 @@ function addShip(length, cordX, cordY, axis) {
     cX,
     cY,
     axis,
+    reported: false,
   };
 
   this.ships.push(s);
@@ -107,21 +104,19 @@ function addShip(length, cordX, cordY, axis) {
 
 // prevent shots corner neighbors if ship hits
 function recordHit(cordX, cordY) {
-  if (!this.isValidCell(cordX, cordY)) return;
+  if (!this.isValidCell(cordX, cordY)) return false;
   this.trackShot[cordY][cordX] = 2;
-
-  if (this.isValidCell(cordX - 1, cordY - 1)) {
-    this.trackShot[cordY - 1][cordX - 1] = -1;
-  }
-  if (this.isValidCell(cordX - 1, cordY + 1)) {
-    this.trackShot[cordY + 1][cordX - 1] = -1;
-  }
-  if (this.isValidCell(cordX + 1, cordY - 1)) {
-    this.trackShot[cordY - 1][cordX + 1] = -1;
-  }
-  if (this.isValidCell(cordX + 1, cordY + 1)) {
-    this.trackShot[cordY + 1][cordX + 1] = -1;
-  }
+  [cordY - 1, cordY + 1].forEach((col) => {
+    [cordX - 1, cordX + 1].forEach((row) => {
+      if (row >= 0 && row < 10 && col >= 0 && col < 10) {
+        if (this.isValidCell(row, col) && this.trackShot[col][row] === 0) {
+          this.trackShot[col][row] = -1;
+          eventAggregator.publish('miss-auto', { x: row, y: col });
+        }
+      }
+    });
+  });
+  return true;
 }
 
 function receiveAttack(cordX, cordY) {
@@ -145,9 +140,11 @@ function receiveAttack(cordX, cordY) {
       ) {
         ship.ship.hit(boardMain - mainAxis);
       }
+      eventAggregator.publish('hit', { x: cordX, y: cordY });
     });
   } else {
     this.trackShot[cordY][cordX] = 1;
+    eventAggregator.publish('miss', { x: cordX, y: cordY });
   }
   return true;
 }

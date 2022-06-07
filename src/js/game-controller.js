@@ -4,6 +4,9 @@ import { important, random } from './utils';
 
 let player1;
 let player2;
+const currentGame = {
+  turn: 1,
+};
 
 function initializePlayers() {
   player1 = new Player('Human');
@@ -27,22 +30,37 @@ function initializePlayers() {
   eventAggregator.publish('player-initialized', { player1, player2 });
 }
 
-function renderBoard(player) {
-  player.board.ships.forEach((ship) => {
-    const { axis, cX, cY } = ship;
-    const { length } = ship.ship;
-    for (let i = 0; i < length; i++) {
-      const row = axis === 'y' ? cX : cX + i;
-      const col = axis === 'y' ? cY + i : cY;
-      const cell = document.querySelector(
-        `.player [data-row="${row}"][data-col="${col}"]`
-      );
-      if (i === 0) cell.classList.add('ship_start');
-      if (axis === 'y') cell.classList.add('ship_v');
-      if (axis === 'x') cell.classList.add('ship_h');
-      if (i === length - 1) cell.classList.add('ship_end');
-    }
-  });
+function playerMove(x, y) {
+  player1.attack(x, y);
 }
 
-export { initializePlayers, renderBoard };
+function checkGameStatus() {
+  const prePlayer = currentGame.turn === 0 ? player1 : player2;
+  const player = currentGame.turn === 1 ? player1 : player2;
+  const main = document.querySelector('.main-content');
+  main.className =
+    currentGame.turn === 1
+      ? 'main-content your-turn'
+      : 'main-content opponent-turn';
+  prePlayer.board.ships.forEach((ship) => {
+    if (ship.ship.isSunk() && !ship.reported) {
+      console.log(`${ship} is sunk`);
+      // eventAggregator.publish('game-over', { winner: player });
+      // eslint-disable-next-line no-param-reassign
+      ship.reported = true;
+    }
+  });
+  if (prePlayer.board.isGameOver()) {
+    eventAggregator.publish('game-over', { winner: player });
+    console.log('game over');
+    return;
+  }
+  if (player.isComputer) {
+    setTimeout(() => {
+      player.aiMove();
+      checkGameStatus();
+    }, random(1500, 500));
+  }
+}
+
+export { initializePlayers, playerMove, currentGame, checkGameStatus };

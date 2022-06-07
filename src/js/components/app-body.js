@@ -1,8 +1,7 @@
+import addClickListener from '../modules/click-listner';
 import DOM from '../modules/dom-stuff';
-import createBoard from './board';
 
 const createAppBody = (() => {
-  const playerBoard = createBoard();
   const playerBoardTitle = DOM.createElement({
     tagName: 'p',
     className: 'board-title',
@@ -13,16 +12,26 @@ const createAppBody = (() => {
     className: 'board-title',
     text: "Opponent's Board",
   });
-  const opponentBoard = createBoard();
   const boardWrapperRight = DOM.createElement({
     tagName: 'div',
     className: 'computer board-wrapper',
-    children: [opponentBoardTitle, opponentBoard],
+    children: [opponentBoardTitle],
   });
   const boardWrapperLeft = DOM.createElement({
     tagName: 'div',
     className: 'player board-wrapper',
-    children: [playerBoardTitle, playerBoard],
+    children: [playerBoardTitle],
+  });
+  const btnReset = DOM.createElement({
+    tagName: 'button',
+    className: 'btn reset-btn',
+    text: 'Reset',
+  });
+  addClickListener(btnReset, 'reset-button-clicked');
+  const buttonsWrapper = DOM.createElement({
+    tagName: 'div',
+    className: 'buttons-wrapper',
+    children: [btnReset],
   });
   const body = DOM.createElement({
     tagName: 'div',
@@ -32,7 +41,7 @@ const createAppBody = (() => {
   const wrapper = DOM.createElement({
     tagName: 'div',
     className: 'main-container',
-    children: [body],
+    children: [body, buttonsWrapper],
   });
   return () => wrapper;
 })();

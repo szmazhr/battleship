@@ -1,8 +1,6 @@
-$ship-border-color: #000;
+$ship-border-color: #0051ff;
 $ship-border-width: 3px;
 .board-wrapper{
-  height: 500px;
-  width: 500px;
   padding: 10px;
   transition: opacity 0.3s ease-in;
 
@@ -20,6 +18,8 @@ $ship-border-width: 3px;
   grid-template-columns: repeat(11, 1fr);
   grid-template-rows: repeat(11, 1fr);
   position: relative;
+  height: 500px;
+  width: 500px;
 
   .box {
     background-color: #fcfcfc;
@@ -62,6 +62,8 @@ $ship-border-width: 3px;
 .player.board-wrapper {
   .box {
     &.ship_v {
+      background-color: #0051ff3b;
+      border: none;
       border-left: $ship-border-width solid $ship-border-color;
       border-right: $ship-border-width solid $ship-border-color;
       &.ship_start {
@@ -72,6 +74,8 @@ $ship-border-width: 3px;
       }
     }
     &.ship_h {
+      background-color: #0051ff3b;
+      border: none;
       border-top: $ship-border-width solid $ship-border-color;
       border-bottom: $ship-border-width solid $ship-border-color;
       &.ship_start {
@@ -93,6 +97,7 @@ $ship-border-width: 3px;
 
 .board-wrapper .box.hit {
   border: 1px solid;
+  pointer-events: none;
   border-color: red !important;
   &::after {
     content: 'X';
@@ -103,6 +108,7 @@ $ship-border-width: 3px;
 
 .board-wrapper .box.missed {
   border: 1px solid;
+  pointer-events: none;
   border-color: rgb(66, 66, 66) !important;
   &::after {
     content: 'o';

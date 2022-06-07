@@ -52,11 +52,14 @@ body{
         border-radius: 10px;
         border: none;
         cursor: pointer;
-        background-color: #c8ff00;
+        background-color: #9eff1eaf;
         font-weight: 700;
+        letter-spacing: 5px;
+        font-family: 'Courier New', Courier, monospace;
         
         &:hover{
-          background-color: #a6ff00;
+          background-color: #9eff1e;
+
         }
       }
     }
