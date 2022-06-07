@@ -4,6 +4,7 @@ import {
   removeStartScreen,
   renderBoard1,
   renderBoard2,
+  shipSunk,
 } from './dom-controller';
 import eventAggregator from './modules/event-aggregator';
 import {
@@ -63,6 +64,10 @@ eventAggregator.subscribe('miss-auto', (cord) => {
   );
   element.classList.add('missed');
   element.classList.add('auto');
+});
+
+eventAggregator.subscribe('ship-sunk', ({ ship }) => {
+  shipSunk(ship);
 });
 
 eventAggregator.subscribe('game-over', addResultScreen);

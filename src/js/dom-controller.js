@@ -3,6 +3,7 @@ import loadStartPage from './components/start-page';
 import addClickListener from './modules/click-listner';
 import eventAggregator from './modules/event-aggregator';
 import { currentGame } from './game-controller';
+import loadAliveIndicator from './components/alive-indicator';
 
 function removeStartScreen() {
   const startScreen = document.querySelector('.start-page-container');
@@ -34,9 +35,12 @@ function addResultScreen() {
 function renderBoard1(player) {
   const player1Place = document.querySelector('.player.board-wrapper');
   const board = player1Place.querySelector('.board');
+  const aliveIndicator = player1Place.querySelector('.alive-indicator');
   if (board) board.remove();
+  if (aliveIndicator) aliveIndicator.remove();
   const newBoard = createBoard();
-  player1Place.appendChild(newBoard);
+  const newAliveIndicator = loadAliveIndicator();
+  player1Place.append(newBoard, newAliveIndicator);
   player.board.ships.forEach((ship) => {
     const { axis, cX, cY } = ship;
     const { length } = ship.ship;
@@ -57,9 +61,12 @@ function renderBoard1(player) {
 function renderBoard2() {
   const player2Place = document.querySelector('.computer.board-wrapper');
   const board = player2Place.querySelector('.board');
+  const aliveIndicator = player2Place.querySelector('.alive-indicator');
   if (board) board.remove();
+  if (aliveIndicator) aliveIndicator.remove();
   const newBoard = createBoard();
-  player2Place.appendChild(newBoard);
+  const newAliveIndicator = loadAliveIndicator();
+  player2Place.append(newBoard, newAliveIndicator);
   const boxes = newBoard.querySelectorAll('.box');
   boxes.forEach((box) => {
     if (box.dataset.row !== '-1' && box.dataset.col !== '-1') {
@@ -68,4 +75,19 @@ function renderBoard2() {
   });
 }
 
-export { removeStartScreen, addResultScreen, renderBoard1, renderBoard2 };
+function shipSunk(ship) {
+  const { length } = ship;
+  const player = currentGame.turn === 0 ? 'player' : 'computer';
+  const shipEl = document.querySelector(
+    `.${player}.board-wrapper .ship[data-length="${length}"][data-alive="true"]`
+  );
+  shipEl.dataset.alive = 'false';
+}
+
+export {
+  removeStartScreen,
+  addResultScreen,
+  renderBoard1,
+  renderBoard2,
+  shipSunk,
+};

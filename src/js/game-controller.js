@@ -44,8 +44,7 @@ function checkGameStatus() {
       : 'main-content opponent-turn';
   prePlayer.board.ships.forEach((ship) => {
     if (ship.ship.isSunk() && !ship.reported) {
-      console.log(`${ship} is sunk`);
-      // eventAggregator.publish('game-over', { winner: player });
+      eventAggregator.publish('ship-sunk', { ship: ship.ship });
       // eslint-disable-next-line no-param-reassign
       ship.reported = true;
     }

@@ -1,9 +1,11 @@
 $ship-border-color: #0051ff;
 $ship-border-width: 3px;
-.board-wrapper{
+.board-wrapper {
   padding: 10px;
   transition: opacity 0.3s ease-in;
-
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .board-title {
@@ -139,7 +141,33 @@ $ship-border-width: 3px;
   .main-header {
     span {
       &::after {
-        content: "Your Turn";
+        content: 'Your Turn';
+      }
+    }
+  }
+}
+.alive-indicator {
+  display: flex;
+  flex-wrap: wrap;
+  width: 90px;
+  margin: 20px;
+  .ship {
+    margin: 2px 5px;
+    display: flex;
+    .ship-part {
+      height: 10px;
+      width: 10px;
+    }
+    &[data-alive=true] {
+      .ship-part{
+        border: 1px solid green;
+        background-color: rgba(0, 128, 0, 0.616);
+      }
+    }
+    &[data-alive=false] {
+      .ship-part{
+        border: 1px solid rgb(128, 0, 0);
+        background-color: rgba(128, 0, 0, 0.616);
       }
     }
   }
