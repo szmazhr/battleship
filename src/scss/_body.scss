@@ -1,0 +1,32 @@
+.main-container{
+  min-height: calc(100vh - calc(20vh + 100px));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  flex-direction: column;
+  .main-body{
+    width: 100%;
+    max-width: 1440px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap;
+
+
+  }
+  .buttons-wrapper{
+    padding: 20px;
+  }
+  .btn{
+    padding: 0.5em;
+    font-size: 1rem;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    background-color: #d3d3d3;
+    &:hover{
+      background-color: #afafaf;
+    }
+  }
+}
