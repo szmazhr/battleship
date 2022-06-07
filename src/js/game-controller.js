@@ -5,6 +5,10 @@ import { important, random } from './utils';
 let player1;
 let player2;
 
+const currentGame = {
+  turn: 1,
+};
+
 function initializePlayers() {
   player1 = new Player('Human');
   player2 = new Player('Computer', true);
@@ -26,10 +30,6 @@ function initializePlayers() {
   });
   eventAggregator.publish('player-initialized', { player1, player2 });
 }
-
-const currentGame = {
-  turn: 1,
-};
 
 function playerMove(x, y) {
   player1.attack(x, y);
